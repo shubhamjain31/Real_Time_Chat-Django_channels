@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+<head>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/chat.css' %}">
+</head>
+{% endblock %}
+{% block body %}
+<body id="body">
+<h1>{{heading}}</h1>
+<div id="messageCanvas"></div>
+	<form method="post" action="{% url 'chat' %}" id="Chatform">
+		{% csrf_token %}
+		<input type="hidden" name="username" value="{{username}}"  id="chat-log">
+		<input type="text" name="usermsg" id="chat-message-input" placeholder="Enter Your Message..">
+		<button type="submit" class="btn" id="chat-message-submit">Send</button>
+	</form>
+</body>
+{% endblock %}
+{% block js %}
+	<!-- <script src="{% static 'js/plugin.js' %}"></script> -->
+	<script type="text/javascript">
+		var socket = new WebSocket('ws://127.0.0.1:8000/ws/chat/');
+	socket.onopen = websocket_welcome;
+	socket.onmessage = websocket_message_show;
+
+	$('#Chatform').submit(function(e){
+		e.preventDefault();
+		message_data = {
+			'username':$('input[name="username"]').val(),
+			'usermsg' : $('input[name="usermsg"]').val()
+
+		}
+		socket.send(JSON.stringify(message_data));
+		$("#Chatform")[0].reset();
+	});
+
+function websocket_welcome(){
+	alert("welcome to chat room")
+}
+function websocket_message_show(e){
+	message_data = JSON.parse(e.data);
+	coding = "<h5>" + message_data.username + "</h5>" + 
+			 "<p class='coding'>" +  message_data.message + "</p>";
+	$('#messageCanvas').append(coding);
+}
+	</script>
+{% endblock %}
