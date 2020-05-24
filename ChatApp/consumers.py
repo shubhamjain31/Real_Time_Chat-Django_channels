@@ -23,6 +23,7 @@ class ChatConsumer(WebsocketConsumer):
 
     # Receive message from WebSocket
     def receive(self, text_data):
+        print(text_data)
         text_data_json = json.loads(text_data)
         message = text_data_json['usermsg']
         uname = text_data_json['username']

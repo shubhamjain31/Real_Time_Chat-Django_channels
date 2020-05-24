@@ -1,24 +1,99 @@
-body {
-  margin: 0 auto;
-  max-width: 800px;
-  padding: 0 20px;
+*{
+	padding:0;
+	margin:2%y;
+	box-sizing:border-box;
+
 }
 
-.container {
-  border: 2px solid #dedede;
-  background-color: #f1f1f1;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px 0;
+header{
+	
+	position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  
+  background-color:#E9ECEF;
+
 }
 
-.darker {
-  border-color: #ccc;
-  background-color: #ddd;
+
+#brand{
+		padding:16px;
+		color:#00a087;
+		margin-left:5%;
+		font-weight:bold;
+		padding:16px;
+		cursor:pointer;
+		
+
 }
 
-.container::after {
-  content: "";
-  clear: both;
-  display: table;
+.wrapper{
+	border:1px solid grey;
+	padding:2%;
+	height:75vh;
+	overflow-y: scroll;
+	margin-bottom:8%;}
+
+.sender{
+	padding:8px;
+	border:1px solid #c3e6cb;
+	border-radius:25px;
+	width:auto;
+	margin-left:25%;
+	background:#d4edda;
+	color:#155724;
+}
+
+.reciver{
+	padding:8px;
+	border:1px solid #bee5eb;
+	border-radius:25px;
+	width:auto;
+	margin-right:25%;
+	background:#d1ecf1;
+	color:#0c5460;
+}
+
+.typedMessageSection{
+  position: fixed;
+  bottom: 8px;
+  width: 100%;
+  background-color: #333;
+  overflow: hidden;
+
+  
+}
+
+.navbar {
+  background-color: #E9ECEF;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  align-content: center;
+}
+
+#textMessage{
+	padding:8px;
+	color:red;
+	width:80%;
+	border:2px solid #00a087;
+	border-radius:25px 0px 0px 25px;
+}
+#textMessagebtn{
+	padding:8px;
+	width:20%;
+	border:2px solid #00a087;
+	color:#00a087;
+	border-radius:0px 25px 25px 0px;
+	outline:none;
+}
+
+.personProfilePicture{
+	width:55px;
+	height:55px;
+	border-radius: 50%;
+	outline:none;
 }

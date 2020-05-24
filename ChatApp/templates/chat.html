@@ -2,19 +2,42 @@
 {% load static %}
 {% block head %}
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	{% block css %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/chat.css' %}">
+	
+	{% endblock %}
 </head>
 {% endblock %}
 {% block body %}
-<body id="body">
-<h1>{{heading}}</h1>
-<div id="messageCanvas"></div>
-	<form method="post" action="{% url 'chat' %}" id="Chatform">
+
+<body>
+
+
+<header>
+      <h4 id="brand">Chat Room</h4>
+</header>
+<br><br><br><br>
+
+
+<div class="container w-50 mb-5">
+	<div class="wrapper"></div>
+
+<!--Main Body-->
+
+
+	<!--Message Typed-->
+	<form method="post" action="{% url 'chat' %}" id="Chatform" >
 		{% csrf_token %}
 		<input type="hidden" name="username" value="{{username}}"  id="chat-log">
-		<input type="text" name="usermsg" id="chat-message-input" placeholder="Enter Your Message..">
-		<button type="submit" class="btn" id="chat-message-submit">Send</button>
-	</form>
+		<div class="navbar container w-50 pr-5">
+		<input type="text" name="usermsg" placeholder="Type a message..." class="" id="textMessage">
+		<button id="textMessagebtn">Send</button>
+		</div>
+		</form>
+
+</div>
 </body>
 {% endblock %}
 {% block js %}
@@ -36,13 +59,24 @@
 	});
 
 function websocket_welcome(){
-	alert("welcome to chat room")
+	// alert("welcome to chat room")
 }
 function websocket_message_show(e){
+	var nm=document.getElementById("chat-log").value;
+	var today = new Date();
+	var time = today.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+	
 	message_data = JSON.parse(e.data);
-	coding = "<h5>" + message_data.username + "</h5>" + 
-			 "<p class='coding'>" +  message_data.message + "</p>";
-	$('#messageCanvas').append(coding);
+	if(message_data.username==nm){
+	coding ="<p class='sender'><img src='{% static 'images/testimonials-2.jpg' %}' class='personProfilePicture'><strong class='ml-2'>"+message_data.username+"</strong><br><span class='ml-5'>"+message_data.message+"</span><span class='float-right'>"+time+"</span></p>";
+			}
+	else{
+		coding = "<p class='reciver'><img src='{% static 'images/testimonials-2.png' %}' class='personProfilePicture'><strong >"+message_data.username+"</strong><br><span class='ml-5'>"+message_data.message+"</span><span class='float-right'>"+time+"</span></p>";
+	}
+
+	$('.wrapper').append(coding);
+	console.log(coding);
 }
 	</script>
 {% endblock %}
+
